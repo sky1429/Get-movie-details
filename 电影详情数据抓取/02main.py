@@ -89,11 +89,11 @@ def movieDetails(param)-> dict:
             #解析数据
             # moviename = doc_html_movie.xpath("//section/div/h2/a/text()")
             movieyear = doc_html_movie.xpath("//section/div/h2/span/text()")
-            moviereleasetime = doc_html_movie.xpath("//section/div/div/span[2]/text()")
-            moviegenres = doc_html_movie.xpath("//section/div/div/span[3]/a/text()")
-            movieruntime = doc_html_movie.xpath("//section/div/div/span[4]/text()")
+            moviereleasetime = doc_html_movie.xpath("//section/div/div/span[@class='release']/text()")
+            moviegenres = doc_html_movie.xpath("//section/div/div/span[@class='genres']/a/text()")
+            movieruntime = doc_html_movie.xpath("//section/div/div/span[@class='runtime']/text()")
             moviescore_percent = doc_html_movie.xpath("//div[@class='user_score_chart']/@data-percent")
-            movielanguage = doc_html_movie.xpath("//section[@class = 'facts left_column']/p[3]/text()")
+            movielanguage = doc_html_movie.xpath("//section[@class = 'facts left_column']/p[strong/bdi[contains(text(), '默认语言')]]/text()")
             movie_peoplelist = doc_html_movie.xpath("//ol[@class = 'people no_image']/li")
             movierevew = doc_html_movie.xpath("//section[@class = 'header poster']//div//div[@class = 'overview']/p/text()")
             movietagline = doc_html_movie.xpath("//section[@class = 'header poster']/div/h3[@class = 'tagline']/text()")
@@ -154,7 +154,7 @@ def main():
     # 获取电影列表,并保存在csv文件中
         requests_get_mainpage(URL_GOAL)
     #获取分页电影列表
-        requests_post_page(TMDB_TOP_URL_2,8)
+        requests_post_page(TMDB_TOP_URL_2,5)
     #获取电影详情
         movie_info = movieDetails("csv_datas/movie_list.csv")
     #保存电影详情
